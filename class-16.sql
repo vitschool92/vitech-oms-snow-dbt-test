@@ -346,19 +346,3 @@ SELECT
     ) AS decrypted_email_hash
 
 FROM CUSTOMERS_SECURED;
-
-SELECT 
-    full_name,
-
-    -- Step 1: Decrypt → cast BINARY to STRING → hex decode to original email
-    hex_decode_string(
-        CAST(
-            decrypt(
-                encrypted_email,
-                'sample_passphrase',
-                NULL,
-                'aes-cbc/pad:pkcs'
-            ) AS VARCHAR
-        )
-    ) AS decrypted_email
-    FROM CUSTOMERS_SECURED
